@@ -17,7 +17,7 @@ Query parameters:
 
 Example request:
 
-https://yummuer-api.herokuapp.com//v1/places?search[query]=jalapenos&search[location]=NYC
+https://yummuer-api.herokuapp.com/v1/places?search[query]=jalapenos&search[location]=NYC
 
 Example response:
 
