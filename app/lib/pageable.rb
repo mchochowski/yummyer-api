@@ -20,13 +20,17 @@ module Pageable
   end
 
   def links(total)
-    links = { self: endpoint_url(query_params) }
-    if offset + DEFALT_PAGE_SIZE < total
-      links[:next] = endpoint_url(query_params(new_offset: offset + DEFALT_PAGE_SIZE))
-    end
-    unless offset == DEFALT_OFFSET
-      links[:prev] = endpoint_url(query_params(new_offset: offset - DEFALT_PAGE_SIZE))
-    end
+    links = { self: full_url }
+    links[:next] = full_url(new_offset: offset + limit) if offset + limit < total
+    links[:prev] = full_url(new_offset: offset - limit) unless offset == DEFALT_OFFSET
     links
+  end
+
+  def full_url(new_offset: nil)
+    if new_offset
+      endpoint_url(query_params(new_offset: new_offset))
+    else
+      endpoint_url(query_params)
+    end
   end
 end
